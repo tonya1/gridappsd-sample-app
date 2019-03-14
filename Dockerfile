@@ -2,10 +2,17 @@
 # from the gridappsd container.
 FROM gridappsd/app-container-base
 
+# Add the TIMESTAMP variable to capture the build information from 
+# the travis docker build.
+ARG TIMESTAMP
+
 # Pick a spot to put our application code
 # (note gridappsd-python is located at /usr/src/gridappsd-python)
 # and is already installed in the app-container-base environment.
 WORKDIR /usr/src/gridappsd-sample
+
+# Add the build information to the container.
+RUN echo $TIMESTAMP > /dockerbuildversion.txt 
 
 # Add dependencies to the requirements.txt file before
 # uncommenting the next two lines
